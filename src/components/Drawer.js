@@ -3,7 +3,7 @@ function Drawer({onClose, items = []}) {
     <div className="overlay">
       <div className="drawer">
         <h2 className="d-flex justify-between mb-20">
-          Корзина <img onClick={onClose} src="/img/delete-off.svg" />
+          Корзина <img onClick={onClose} src="/img/delete-off.svg" alt="Close" />
         </h2>
 
         <div className="cart-items">
@@ -14,7 +14,7 @@ function Drawer({onClose, items = []}) {
                 <p className="mb5">{obj.title}</p>
                 <b>{obj.price} руб.</b>
               </div>
-              <img src="/img/delete-off.svg" />
+              <img src="/img/delete-off.svg" alt="Delete" />
             </div>
             ))
           }
@@ -24,17 +24,17 @@ function Drawer({onClose, items = []}) {
           <ul>
             <li>
               <span>Итого:</span>
-              <div></div>
+              <div> </div>
               <b>21 498 руб.</b>
             </li>
             <li>
               <span>Налог 5%:</span>
-              <div></div>
+              <div> </div>
               <b>1074 руб.</b>
             </li>
             <button className="green-button">
               Оформить заказ
-              <img src="/img/arrow.svg" />
+              <img src="/img/arrow.svg" alt="Next" />
             </button>
           </ul>
         </div>

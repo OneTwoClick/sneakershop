@@ -14,7 +14,7 @@ function Card({title, price, img, onFavorite, onPlus}) {
       <div className={styles.favorite} onClick={onFavorite}>
         <img src="/img/like-off.svg" alt="Unlike"/>
       </div>
-      <img width={133} height={112} src={img} alt=""/>
+      <img width={133} height={112} src={img} alt={title}/>
       <h5>{title}</h5>
       <div className="d-flex justify-between align-center">
         <div className="d-flex flex-column">

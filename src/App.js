@@ -6,7 +6,7 @@ import React from "react";
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
-  const [searchValue, setSearchValue] = React.useState();
+  const [searchValue, setSearchValue] = React.useState('');
   const [cartOpen, setCartOpen] = React.useState(false);
 
   React.useEffect(() => {

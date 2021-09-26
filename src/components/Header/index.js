@@ -2,7 +2,7 @@ function Header(props) {
   return (
     <header className="d-flex justify-between align-center p-40">
       <div className="d-flex align-center">
-        <img src="/img/logo.svg" className="mr-10" />
+        <img src="/img/logo.svg" className="mr-10" alt="Logo"/>
         <div className="headerInfo" >
           <h3 className="text-uppercase">Yeezy Sneakers</h3>
           <p className="opacity-5">Мазазин редких кроссовок</p>
