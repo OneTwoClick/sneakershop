@@ -2,26 +2,43 @@ import Card from  './components/Card'
 import Header from './components/Header'
 import Drawer from "./components/Drawer";
 import React from "react";
+import axios from "axios";
 
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
+  const [favoriteItems, setFavoriteItems] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState('');
   const [cartOpen, setCartOpen] = React.useState(false);
 
   React.useEffect(() => {
-    fetch("https://61506856a706cd00179b7440.mockapi.io/api/items/items")
+    /**fetch("https://61506856a706cd00179b7440.mockapi.io/api/items/items")
       .then((res) => {
         return res.json();
       })
       .then((json) => {
         setItems(json);
-      });
+      });**/
+    axios.get("https://61506856a706cd00179b7440.mockapi.io/api/items/items")
+      .then((res) => {setItems(res.data);})
+    axios.get("https://61506856a706cd00179b7440.mockapi.io/api/items/cart")
+      .then((res) => {setCartItems(res.data);})
   }, []);
 
-  const onAddToCart = (obj) => {
-    setCartItems(prev => [...prev, obj]);
+  const onAddToFavorite = (obj) => {
+    axios.post("https://61506856a706cd00179b7440.mockapi.io/api/items/favorite", obj);
+    setFavoriteItems((prev) => [...prev, obj]);
   };
+
+  const onAddToCart = (obj) => {
+    axios.post("https://61506856a706cd00179b7440.mockapi.io/api/items/cart", obj);
+    setCartItems((prev) => [...prev, obj]);
+  };
+
+  const onRemoveOnCart = (id) => {
+    axios.delete(`https://61506856a706cd00179b7440.mockapi.io/api/items/cart/${id}`);
+    setCartItems((prev) => prev.filter(item => item.id !== id));
+  }
 
   const onChangeSearch = (event) => {
     setSearchValue(event.target.value);
@@ -30,7 +47,12 @@ function App() {
   return (
     <div className="wrapper clear">
 
-      {cartOpen && <Drawer items={cartItems} onClose={() => setCartOpen(false)}/>}
+      {cartOpen &&
+      <Drawer
+        items={cartItems}
+        onClose={() => setCartOpen(false)}
+        onRemove={onRemoveOnCart}
+      />}
       <Header onOpenCart={() => setCartOpen(true)}/>
 
       <div className="content p-40">
@@ -51,7 +73,7 @@ function App() {
                 title={item.title}
                 price={item.price}
                 img={item.img}
-                onFavorite={() => console.log('321312')}
+                onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
               />
             ))
