@@ -135,7 +135,7 @@ function App() {
           />
         </Route>
 
-        <Route path="favorites" exact>
+        <Route path="/favorites" exact>
           <Favorites
             items={favoriteItems}
             onAddToFavorite={onAddToFavorite}
@@ -144,7 +144,7 @@ function App() {
           />
         </Route>
 
-        <Route path="orders" exact>
+        <Route path="/orders" exact>
           <Orders
           />
         </Route>
