@@ -6,10 +6,12 @@ import {AppContext} from "../../App";
 function Card(
   {
     id,
+    parentId,
     title,
     price,
     img,
     loading,
+    thisFavorite,
     onFavorite,
     onPlus
   }) {
@@ -22,7 +24,7 @@ function Card(
   }
 
   const onClickFavorite =() => {
-    onFavorite(obj);
+    onFavorite(obj, thisFavorite);
   }
 
   return (
@@ -44,7 +46,7 @@ function Card(
         </ContentLoader> :
           <div>
             {onFavorite && (<div className={styles.favorite} onClick={onClickFavorite}>
-              <img src={isItemFavorite(id) ? "/img/like-on.svg" : "/img/like-off.svg"} alt="Unlike"/>
+              <img src={isItemFavorite(thisFavorite ? parentId : id) ? "img/like-on.svg" : "img/like-off.svg"} alt="Unlike"/>
             </div>)}
             <img width="100%" height={135} src={img} alt={title}/>
             <h5>{title}</h5>
@@ -54,7 +56,7 @@ function Card(
                 <b>{price} руб.</b>
               </div>
               {onPlus && (<button className="button" onClick={onClickPlus}>
-                <img src={isItemAdded(id) ? "/img/plus-on.svg" : "/img/plus-off.svg"} alt="Unlike"/>
+                <img src={isItemAdded(id) ? "img/plus-on.svg" : "img/plus-off.svg"} alt="Unlike"/>
               </button>)}
             </div>
           </div>

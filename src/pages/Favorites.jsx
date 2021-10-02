@@ -13,8 +13,9 @@ function Favorites({items, onAddToCart, onAddToFavorite, isLoading}) {
             <Card
               key={index}
               loading={isLoading}
-              onFavorite={(obj) => onAddToFavorite(obj)}
+              onFavorite={(obj, favorite) => onAddToFavorite(obj, favorite)}
               onPlus={(obj) => onAddToCart(obj)}
+              thisFavorite = {true}
               {...item}
             />
           ))

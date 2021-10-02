@@ -37,27 +37,33 @@ function App() {
     fetchData();
   }, []);
 
-  const onAddToFavorite = async (obj) => {
-    const findItem = favoriteItems.find((item) => Number(item.parentId) === Number(obj.id));
-    try {
-      if(findItem) {
-        setFavoriteItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)));
-        await axios.delete(`https://61506856a706cd00179b7440.mockapi.io/api/items/favorite/${findItem.id}`);
-      } else {
-        setFavoriteItems((prev) => [...prev, obj]);
-        const { data } = await axios.post("https://61506856a706cd00179b7440.mockapi.io/api/items/favorite", obj);
-        setFavoriteItems((prev) => prev.map(item => {
-          if (Number(item.parentId) === Number(data.parentId)) {
-            return {
-              ...item,
-              id: data.id
+  const onAddToFavorite = async (obj, favorite) => {
+    if (favorite){
+      setFavoriteItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
+      await axios.delete(`https://61506856a706cd00179b7440.mockapi.io/api/items/favorite/${obj.id}`);
+    } else {
+      const findItem = favoriteItems.find((item) => Number(item.parentId) === Number(obj.id));
+
+      try {
+        if(findItem) {
+          setFavoriteItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)));
+          await axios.delete(`https://61506856a706cd00179b7440.mockapi.io/api/items/favorite/${findItem.id}`);
+        } else {
+          setFavoriteItems((prev) => [...prev, obj]);
+          const { data } = await axios.post("https://61506856a706cd00179b7440.mockapi.io/api/items/favorite", obj);
+          setFavoriteItems((prev) => prev.map(item => {
+            if (Number(item.parentId) === Number(data.parentId)) {
+              return {
+                ...item,
+                id: data.id
+              }
             }
-          }
-          return item;
-        }));
+            return item;
+          }));
+        }
+      } catch (error) {
+        alert('Не удалось добавить в закладки')
       }
-    } catch (error) {
-      alert('Не удалось добавить в закладки')
     }
   };
 
@@ -100,8 +106,7 @@ function App() {
 
   const isItemFavorite = (id) => {
     console.log(favoriteItems + "ID " + id);
-
-    return favoriteItems.some((obj) => Number(obj.parentId) === Number(id))
+    return favoriteItems.some((obj) => Number(obj.parentId) === Number(id));
   }
 
   return (

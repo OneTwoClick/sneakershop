@@ -21,9 +21,9 @@ function Drawer({onClose, onRemove, items = []}) {
       setIsComplite(true);
       setCartItems([]);
 
-      for(let i=0; i < cartItems.length; i++){
+      /*for(let i=0; i < cartItems.length; i++){
         await axios.put("https://61506856a706cd00179b7440.mockapi.io/api/items/orders", []);
-      }
+      }*/
     } catch (e) {
       alert('Ошибка при создании заказа')
     }
@@ -34,7 +34,7 @@ function Drawer({onClose, onRemove, items = []}) {
     <div className={styles.overlay}>
       <div className={styles.drawer}>
         <h2 className="d-flex justify-between mb-20">
-          Корзина <img onClick={onClose} src="/img/delete-off.svg" alt="Close" />
+          Корзина <img onClick={onClose} src="img/delete-off.svg" alt="Close" />
         </h2>
 
         {items.length > 0 ? (
@@ -47,7 +47,7 @@ function Drawer({onClose, onRemove, items = []}) {
                     <p className="mb5">{obj.title}</p>
                     <b>{obj.price} руб.</b>
                   </div>
-                  <img onClick={() => onRemove(obj.id)} src="/img/delete-off.svg" alt="Delete" />
+                  <img onClick={() => onRemove(obj.id)} src="img/delete-off.svg" alt="Delete" />
                 </div>
                 ))
               }
@@ -68,7 +68,7 @@ function Drawer({onClose, onRemove, items = []}) {
               </ul>
               <button disabled={isLoading} onClick={onClickOrder} className="greenButton">
                 Оформить заказ
-                <img src="/img/arrow.svg" alt="Next" />
+                <img src="img/arrow.svg" alt="Next" />
               </button>
             </div>
           </div>
@@ -76,7 +76,7 @@ function Drawer({onClose, onRemove, items = []}) {
           <Info
             title={isComplite ? "Заказ оформлен!" : "Корзина пустая"}
             description={isComplite ? `Ваш заказ #${orderId} оформлен и будет передан курьеру` : "Добавьте хотя бы одну пару кроссовок"}
-            img={isComplite ? "/img/confirm-cart.jpg" : "/img/empty-cart.jpg"}
+            img={isComplite ? "img/confirm-cart.jpg" : "img/empty-cart.jpg"}
           />
           )}
       </div>
